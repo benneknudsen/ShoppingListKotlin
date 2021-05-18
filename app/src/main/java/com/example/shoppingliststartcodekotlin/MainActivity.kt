@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+
+
+
     private fun addNewProduct(){
         val newProduct = Product(
             name = editTextTitle.text.toString(),

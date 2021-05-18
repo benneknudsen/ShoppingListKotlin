@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#DAD7CE"
+    app:cardBackgroundColor="#B92196F3"
     app:cardCornerRadius="12dp"
     app:cardElevation="3dp"
     app:contentPadding="4dp">
@@ -21,20 +21,20 @@
             android:id="@+id/item_titleholder"
             android:layout_width="70dp"
             android:layout_height="39dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
-            android:text="Name:"
+            android:text="Navn:"
             android:textColor="@color/black"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="2dp" />
 
         <TextView
             android:id="@+id/item_quantityholder"
             android:layout_width="70dp"
             android:layout_height="39dp"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="50dp"
-            android:text="Quantity:"
+            android:text="Antal:"
             android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -44,42 +44,42 @@
             android:layout_width="70dp"
             android:layout_height="39dp"
             android:layout_marginTop="96dp"
-            android:text="Price:"
+            android:text="Pris:"
             android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-1dp" />
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/item_title"
             android:layout_width="wrap_content"
             android:layout_height="39dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toRightOf="@+id/item_titleholder"
             app:layout_constraintStart_toEndOf="@+id/item_titleholder"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
+
 
         <TextView
             android:id="@+id/item_quantity"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="52dp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toRightOf="@+id/item_quantityholder"
             app:layout_constraintStart_toEndOf="@+id/item_quantityholder"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-
         <TextView
             android:id="@+id/item_price"
             android:layout_width="100dp"
             android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="104dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="96dp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toRightOf="@+id/item_priceholder"
             app:layout_constraintStart_toEndOf="@+id/item_priceholder"
@@ -91,8 +91,9 @@
             android:layout_width="51dp"
             android:layout_height="45dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="48dp"
-            android:background="#F3ECEC"
+            android:background="#9CE4B1B1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/item_edit"
             app:layout_constraintStart_toEndOf="@+id/item_edit"
             app:layout_constraintTop_toTopOf="parent"
@@ -103,8 +104,8 @@
             android:layout_width="51dp"
             android:layout_height="45dp"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="48dp"
-            android:background="#000000"
+            android:background="#7C000000"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/item_price"
             app:layout_constraintStart_toEndOf="@+id/item_price"
             app:layout_constraintTop_toTopOf="parent"
