@@ -20,6 +20,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import org.pondar.dialogfragmentdemokotlinnew.MyDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -66,53 +67,62 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        //Spinner
-        val adapter = ArrayAdapter(this,
-            android.R.layout.simple_spinner_dropdown_item, items)
-
-        spinner1.adapter = adapter
-
-        spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-            //The AdapterView<?> type means that this can be any type,
-            //so we can use both AdapterView<String> or any other
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View,
-                                        position: Int, id: Long) {
-                //So this code is called when ever the spinner is clicked
-                Toast.makeText(this@MainActivity,
-                    "Item selected: " + items[position], Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-            override fun onNothingSelected(arg0: AdapterView<*>) {
-                // you would normally do something here
-                // for instace setting the selected item to "null"
-                // or something.
-            }
+        sortPriceButton.setOnClickListener {
+            Repository.products.sortBy { it.price }
+            adapter.notifyDataSetChanged()
         }
 
     }
 
 
-
-
-
-
-
     fun updateUI() {
         val layoutManager = LinearLayoutManager(this)
 
-        /*you need to have a defined a recylerView in your
-        xml file - in this case the id of the recyclerview should
-        be "recyclerView" - as the code line below uses that */
-
         recyclerView.layoutManager = layoutManager
 
-       adapter = ProductAdapter(Repository.products)
+        adapter = ProductAdapter(Repository.products)
 
         recyclerView.adapter = adapter
-
     }
+
+
+    private val RESULT_CODE_PREFERENCES = 1
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RESULT_CODE_PREFERENCES)
+
+        {
+            val name = PreferenceHandler.getName(this)
+            val message = "Welcome, $name"
+            val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
+            toast.show()
+
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    //callback function from yes/no dialog - for yes choice
+    fun positiveClicked() {
+        val toast = Toast.makeText(
+                this,
+                "Positive button clicked", Toast.LENGTH_LONG
+        )
+        toast.show()
+        Repository.deleteAllProducts()
+    }
+
+
+    //callback function from yes/no dialog - for no choice
+    fun negativeClick() {
+        //Here we override the method and can now do something
+        val toast = Toast.makeText(
+                this,
+                "Negative button clicked", Toast.LENGTH_LONG
+        )
+        toast.show()
+    }
+
+
 
 
 
@@ -146,7 +156,9 @@ class MainActivity : AppCompatActivity() {
             R.id.item_delete -> {
                 Toast.makeText(this, "Delete item clicked!", Toast.LENGTH_LONG)
                     .show()
-                Repository.deleteAllProducts();
+                val dialog = MyDialogFragment(::positiveClicked, ::negativeClick)
+                dialog.show(supportFragmentManager, "myFragment")
+
                 return true
             }
             R.id.item_help -> {
@@ -154,11 +166,9 @@ class MainActivity : AppCompatActivity() {
                     .show()
                 return true
             }
-            R.id.item_refresh -> {
-                Toast.makeText(this, "Refresh item clicked!", Toast.LENGTH_LONG)
-                    .show()
-                finish();
-                startActivity(getIntent());
+            R.id.item_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivityForResult(intent, RESULT_CODE_PREFERENCES)
                 return true
             }
         }

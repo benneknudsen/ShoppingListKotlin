@@ -5,7 +5,45 @@
     android:id="@+id/mainView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="20px"
+    android:paddingRight="20px"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/myName"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/myName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textViewNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/notifications_on"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/useNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,12 +82,6 @@
             android:layout_height="wrap_content"
             android:text="Quantity" />
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp" />
-
         <EditText
             android:id="@+id/editTextQuantity"
             android:layout_width="match_parent"
@@ -84,6 +116,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Sort by Number" />
+
+            <Button
+                android:id="@+id/sortPriceButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort by Price" />
 
 
         </LinearLayout>

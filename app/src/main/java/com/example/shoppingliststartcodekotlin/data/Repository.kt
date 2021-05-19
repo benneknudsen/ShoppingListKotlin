@@ -16,7 +16,6 @@ object Repository {
 
     fun getData(): MutableLiveData<MutableList<Product>> {
         if (products.isEmpty())
-            createTestData()
         addRealTimeListener()
         productListener.value = products //we inform the listener we have new data
         return productListener
@@ -62,28 +61,8 @@ object Repository {
             .addOnFailureListener { e -> Log.w("Error", "Error deleting document", e) }
     }
 
-    private fun readDataFromFireBase()
-    {
-        val db = Firebase.firestore
-        db.collection("products").get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("Repository", "${document.id} => ${document.data}")
-                    val product = document.toObject<Product>()
-                    product.id = document.id  //set the ID in the product class
-                    Repository.products.add(product)
-                }
-                Repository.productListener.value =
-                    Repository.products //notify our listener we have new data
-            }
-            .addOnFailureListener { exception ->
-                Log.d("Repository", "Error getting documents: ", exception)
-            }
-    }
-    private fun update(product: Product,  name: String, price: String, quantity: String) {
-        Repository.db.collection("products").document(product.id)
-            .update("name", name, "price", price, "quantity", quantity)
-    }
+
+
 
     private fun addRealTimeListener()
     {
@@ -94,22 +73,19 @@ object Repository {
                 Log.d("Repository", "Listen failed.", e)
                 return@addSnapshotListener
             }
-            Repository.products.clear() //to avoid duplicates.
+            products.clear() //to avoid duplicates.
             for (document in snapshot?.documents!!) { //add all products to the list
                 Log.d("Repository_snapshotlist", "${document.id} => ${document.data}")
                 val product = document.toObject<Product>()!!
                 product.id = document.id
-                Repository.products.add(product)
+                products.add(product)
             }
 
-            Repository.productListener.value = Repository.products
+            productListener.value = products
         }
     }
 
 
-    fun createTestData()
-    {
-        //add some products to the products list - for testing purposes
-    }
+
 
 }

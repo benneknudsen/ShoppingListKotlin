@@ -88,28 +88,13 @@
 
         <ImageButton
             android:id="@+id/item_delete"
-            android:layout_width="51dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="12dp"
-            android:background="#9CE4B1B1"
+            android:layout_width="60dp"
+            android:layout_height="53dp"
+            android:background="#7EDEE7EC"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/item_edit"
-            app:layout_constraintStart_toEndOf="@+id/item_edit"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete_white" />
-
-        <ImageButton
-            android:id="@+id/item_edit"
-            android:layout_width="51dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="52dp"
-            android:background="#7C000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/item_price"
-            app:layout_constraintStart_toEndOf="@+id/item_price"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_white_24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
