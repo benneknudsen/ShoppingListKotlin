@@ -6,6 +6,9 @@
 
 
     <item
+        android:id="@+id/item_signout"
+        android:title="Sign Out" />
+    <item
         android:id="@+id/item_help"
         android:icon="@drawable/ic_help_white_24dp"
         app:showAsAction="always"

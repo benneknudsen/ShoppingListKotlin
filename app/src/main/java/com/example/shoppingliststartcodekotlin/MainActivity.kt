@@ -13,10 +13,29 @@ import com.example.shoppingliststartcodekotlin.adapters.ProductAdapter
 import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val AUTH_REQUEST_CODE = 7192
+    lateinit var firebaseAuth:FirebaseAuth
+    lateinit var listener:FirebaseAuth.AuthStateListener
+    lateinit var providers:List<AuthUI.IdpConfig>
+
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth.addAuthStateListener(listener)
+    }
+
+    override fun onStop() {
+        if(listener !=null)
+            firebaseAuth.removeAuthStateListener(listener)
+        super.onStop()
+    }
+
 
     lateinit var adapter: ProductAdapter
 
@@ -45,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(applicationContext)
         setContentView(R.layout.activity_main)
+        init()
         button_add.setOnClickListener{addNewProduct()}
         Repository.getData().observe(this, Observer {
             Log.d("Products","Found ${it.size} products")
@@ -72,7 +92,44 @@ class MainActivity : AppCompatActivity() {
         val notifications = PreferenceHandler.useNotifications(this)
         updateUISettings(name, notifications)
 
+
+
     }
+
+
+
+
+
+    private fun init() {
+        providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.AnonymousBuilder().build()
+
+        )
+        firebaseAuth = FirebaseAuth.getInstance()
+        listener = object:FirebaseAuth.AuthStateListener{
+            override fun onAuthStateChanged(p0: FirebaseAuth) {
+                val user = p0.currentUser
+                if(user != null)
+                {
+                    Toast.makeText(this@MainActivity, ""+user.uid,Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    startActivityForResult(AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .setLogo(R.mipmap.ic_launcher_round)
+                        .build(),AUTH_REQUEST_CODE)
+                }
+            }
+
+
+        }
+        }
+
 
 
 fun updateUISettings(name: String, notifications:Boolean){
@@ -177,6 +234,15 @@ fun updateUI() {
                 Toast.makeText(this, "Help item clicked!", Toast.LENGTH_LONG)
                     .show()
                 return true
+            }
+            R.id.item_signout -> {
+                // [START auth_fui_signout]
+                AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener {
+                        // ...
+                    }
+                // [END auth_fui_signout]
             }
             R.id.item_settings -> {
                 //Start our settingsactivity and listen to result - i.e.
