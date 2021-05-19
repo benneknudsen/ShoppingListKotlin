@@ -31,11 +31,6 @@ class ProductAdapter(var products: MutableList<Product>) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //here you need to to do stuff also - to back to the exercises
-        //about recyclerviews and you can use approach that were used
-        //in the exercise about recyclerviews from the book (lesson 3)
-        //if you did not do that exercise - then first do that exercise in
-        //a seperate project
         var itemTitle: TextView
         var itemPrice: TextView
         var itemQuantity: TextView

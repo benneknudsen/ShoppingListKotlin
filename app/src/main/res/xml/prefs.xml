@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <EditTextPreference
-        android:defaultValue="Enter Name"
         android:key="name"
         android:summary="Enter your name"
         android:title="Name" />

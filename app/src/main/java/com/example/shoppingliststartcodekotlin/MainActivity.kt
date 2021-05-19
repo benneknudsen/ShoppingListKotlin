@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,20 +14,17 @@ import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
 import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
-import org.pondar.dialogfragmentdemokotlinnew.MyDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-
-    private val items = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
     lateinit var adapter: ProductAdapter
 
+
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -72,10 +66,27 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
+
+        //read the values at app startup so we can show this in the UI
+        val name = PreferenceHandler.getName(this)
+        val notifications = PreferenceHandler.useNotifications(this)
+        updateUISettings(name, notifications)
+
     }
 
 
-    fun updateUI() {
+fun updateUISettings(name: String, notifications:Boolean){
+    myName.text = name
+    if (notifications)
+        useNotifications.text = getString(R.string.on)
+    else
+        useNotifications.text = getString(R.string.off)
+}
+
+
+
+
+fun updateUI() {
         val layoutManager = LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
@@ -93,10 +104,11 @@ class MainActivity : AppCompatActivity() {
 
         {
             val name = PreferenceHandler.getName(this)
+            val notifications = PreferenceHandler.useNotifications(this)
             val message = "Welcome, $name"
             val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
             toast.show()
-
+            updateUISettings(name, notifications)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -167,9 +179,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.item_settings -> {
+                //Start our settingsactivity and listen to result - i.e.
+                //when it is finished.
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivityForResult(intent, RESULT_CODE_PREFERENCES)
-                return true
+
             }
         }
 

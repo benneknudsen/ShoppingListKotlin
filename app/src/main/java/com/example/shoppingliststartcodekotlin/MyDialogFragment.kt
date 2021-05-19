@@ -1,11 +1,11 @@
-package org.pondar.dialogfragmentdemokotlinnew
+package com.example.shoppingliststartcodekotlin
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.shoppingliststartcodekotlin.R
+
 
 //notice that the negClick has default value of the empty function
 open class MyDialogFragment(var posClick: ()-> Unit, var negClick: ()->Unit= {}) : DialogFragment() {

@@ -5,14 +5,17 @@
     android:id="@+id/mainView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="20px"
-    android:paddingRight="20px"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="75dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -20,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="@string/myName"
+            android:text="@string/Hi"
             android:textStyle="bold" />
 
         <TextView
@@ -35,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_marginRight="10dp"
-            android:text="@string/notifications_on"
+            android:text="@string/notifications"
             android:textStyle="bold" />
 
         <TextView
@@ -48,26 +51,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="@string/name" />
 
         <EditText
             android:id="@+id/editTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:labelFor="@id/item_title" />
 
         <TextView
             android:id="@+id/item_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Price" />
+            android:text="@string/price" />
 
         <EditText
             android:id="@+id/editTextPrice"
@@ -80,12 +90,12 @@
             android:id="@+id/item_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quantity" />
+            android:text="@string/quantity" />
 
         <EditText
             android:id="@+id/editTextQuantity"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName" />
 
@@ -93,7 +103,7 @@
             android:id="@+id/button_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/Add"
             tools:layout_editor_absoluteX="281dp"
             tools:layout_editor_absoluteY="98dp" />
 
@@ -131,6 +141,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

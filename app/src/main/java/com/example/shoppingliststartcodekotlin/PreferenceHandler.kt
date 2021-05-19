@@ -9,6 +9,8 @@ object PreferenceHandler {
     private const val SETTINGS_NAMEKEY = "name"
     private const val SETTINGS_NOTIFICATONS = "notifications"
 
+
+
     fun getName(context: Context): String {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(SETTINGS_NAMEKEY, "")!!
     }
