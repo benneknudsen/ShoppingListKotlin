@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         sortPriceButton.setOnClickListener {
-            Repository.products.sortBy { it.price }
+            Repository.products.sortByDescending { it.price }
             adapter.notifyDataSetChanged()
         }
 
@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
             AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.PhoneBuilder().build(),
             AuthUI.IdpConfig.AnonymousBuilder().build()
-
         )
         firebaseAuth = FirebaseAuth.getInstance()
         listener = object:FirebaseAuth.AuthStateListener{
@@ -195,7 +194,7 @@ fun updateUI() {
 
 
 
-    // Options
+
     fun convertListToString(): String
     {
         var result = ""
@@ -207,12 +206,9 @@ fun updateUI() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         Log.d("icon_pressed", "${item.itemId}")
         when (item.itemId) {
-            R.id.item_about -> {
+            R.id.item_share -> {
                 /* Share content */
                 val text = convertListToString() //from EditText
                 val sharingIntent = Intent(Intent.ACTION_SEND)
